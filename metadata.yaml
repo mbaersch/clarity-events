@@ -1,5 +1,5 @@
 homepage: "https://www.markus-baersch.de"
 documentation: "https://github.com/mbaersch/clarity-events#readme"
 versions:
-  - sha: 3d252b1470cc26b2c84a2e315be82e4d4401e88b
+  - sha: 78b518d92c62931ae91668fb1c89aec866b8b994
     changeNotes: Initial release.
