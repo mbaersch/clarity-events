@@ -1,0 +1,5 @@
+homepage: "https://www.markus-baersch.de"
+documentation: "https://github.com/mbaersch/clarity-events-tag#readme"
+versions:
+  - sha: xxxxx
+    changeNotes: initial release.
