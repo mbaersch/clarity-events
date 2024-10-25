@@ -159,20 +159,21 @@ ___TEMPLATE_PARAMETERS___
 ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
 
 const createArgumentsQueue = require('createArgumentsQueue');
+const makeString = require('makeString');
 const clarity = createArgumentsQueue('clarity', 'clarity.q');
 
 if (data.sendEvent === true) {
-  clarity("event", data.eventName);
+  clarity("event", makeString(data.eventName));
 }
 
 if (data.setTags === true && data.customTags) {
   data.customTags.forEach(x => {
-    clarity('set', x.tagKey, x.tagValue);
+    clarity('set', makeString(x.tagKey), makeString(x.tagValue));
   });
 }
 
 if (data.upgradeSession === true && data.upgradeReason) {
-  clarity('upgrade', data.upgradeReason);
+  clarity('upgrade', makeString(data.upgradeReason));
 }
 
 if (data.setConsent === true) {
