@@ -1,4 +1,4 @@
-# Microsoft Clarity Events
+# Microsoft Clarity Events by Markus Baersch
 
 **Custom Tag Template for Google Tag Manager**
 
