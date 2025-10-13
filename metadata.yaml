@@ -1,5 +1,9 @@
 homepage: "https://www.markus-baersch.de"
 documentation: "https://github.com/mbaersch/clarity-events#readme"
 versions:
+  # Latest version
+  - sha: c88432a1b5f2bbfcac6aa83df42443c918ca5acb
+    changeNotes: update for Clarity consent v2. 
+  # Older versions
   - sha: fb086820d4309128a21ed4a8787d6c7aca91301c
     changeNotes: Initial release.
