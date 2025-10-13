@@ -13,7 +13,7 @@ ___INFO___
   "id": "cvt_temp_public_id",
   "version": 1,
   "securityGroups": [],
-  "displayName": "Microsoft Clarity Events by Markus Baersch",
+  "displayName": "Microsoft Clarity Events",
   "categories": [
     "ANALYTICS",
     "HEAT_MAP",
@@ -130,17 +130,17 @@ ___TEMPLATE_PARAMETERS___
   },
   {
     "type": "SELECT",
-    "name": "consentValue",
-    "displayName": "Consent value",
+    "name": "analyticsStorage",
+    "displayName": "Analytics storage",
     "macrosInSelect": true,
     "selectItems": [
       {
-        "value": true,
-        "displayValue": "true"
+        "value": "granted",
+        "displayValue": "granted"
       },
       {
-        "value": false,
-        "displayValue": "false"
+        "value": "denied",
+        "displayValue": "denied"
       }
     ],
     "simpleValueType": true,
@@ -151,7 +151,34 @@ ___TEMPLATE_PARAMETERS___
         "type": "EQUALS"
       }
     ],
-    "help": "When using a variable, make sure to use a boolean variable or provide a string value of \"true\" or \"granted\" to set consent and activate cookies. Everything else will set consent to \"false\""
+    "help": "When using a variable, make sure to use a boolean variable or provide a string value of \"true\" or \"granted\" to set consent and activate cookies. Everything else will set consent to \"false\"",
+    "defaultValue": "granted"
+  },
+  {
+    "type": "SELECT",
+    "name": "adStorage",
+    "displayName": "Ad storage",
+    "macrosInSelect": true,
+    "selectItems": [
+      {
+        "value": "granted",
+        "displayValue": "granted"
+      },
+      {
+        "value": "denied",
+        "displayValue": "denied"
+      }
+    ],
+    "simpleValueType": true,
+    "enablingConditions": [
+      {
+        "paramName": "setConsent",
+        "paramValue": true,
+        "type": "EQUALS"
+      }
+    ],
+    "help": "When using a variable, make sure to use a boolean variable or provide a string value of \"true\" or \"granted\" to set consent and activate cookies. Everything else will set consent to \"false\"",
+    "defaultValue": "granted"
   }
 ]
 
@@ -177,10 +204,16 @@ if (data.upgradeSession === true && data.upgradeReason) {
 }
 
 if (data.setConsent === true) {
-  if (data.consentValue == true)
-    clarity('consent');
-  else 
-    clarity('consent', false);
+
+  let adStorageValue = makeString(data.adStorage||"denied").toLowerCase(); 
+  adStorageValue = (adStorageValue == "granted" || adStorageValue == "true") ? "granted" : "denied";
+  let analyticsStorageValue = makeString(data.analyticsStorage||"denied").toLowerCase(); 
+  analyticsStorageValue = (analyticsStorageValue == "granted" || analyticsStorageValue == "true") ? "granted" : "denied";
+  
+  clarity('consentv2',{
+    ad_Storage: adStorageValue, 
+    analytics_Storage: analyticsStorageValue 
+  });
 }
 
 data.gtmOnSuccess();
@@ -299,4 +332,6 @@ scenarios: []
 
 ___NOTES___
 
-Created on 10/24/2024, 02:42:42 AM
+Created on 10/25/2024, 02:42:42 AM
+
+
